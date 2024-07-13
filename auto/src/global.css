@@ -6,4 +6,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    .scenary {
+        @apply fixed inset-0 flex flex-col gap-5 p-5 bg-gray-800;
+    }
+}
 
