@@ -6,9 +6,50 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+    height: 100%;
+    margin: 0; /* Reset margin to avoid overflow */
+}
+
 @layer base {
-    .scenary {
-        @apply fixed inset-0 flex flex-col gap-5 p-5 bg-gray-800;
+    .controls {
+        @apply  rounded-lg p-4 flex gap-4 flex-wrap justify-center items-center shadow-md;
+    }
+    .conference {
+        @apply flex flex-1 rounded-lg gap-5 max-w-full max-h-full;
+    }
+    .dish {
+        @apply overflow-scroll flex content-center flex-wrap items-center justify-center align-middle flex-1 rounded-lg bg-green-100;
+    }
+    .participant {
+        @apply bg-blue-950  rounded-lg relative overflow-hidden;
+    }
+}
+
+@layer components {
+    .video-item {
+        @apply absolute inset-0 aspect-video w-full h-full bg-black rounded-lg transition-all ease-in-out duration-1000 mt-4 hover:mt-8;
+    }
+    .button {
+        @apply flex justify-center items-center no-underline cursor-pointer shadow-md rounded text-sm uppercase tracking-[2px] select-none relative px-[15px] py-2.5
+        active:shadow-none;
+    }
+    .link{
+        @apply text-black no-underline text-[13px] uppercase font-thin tracking-[4px] text-center flex items-center ml-auto;
+    }
+}
+
+@layer utilities {
+    .show {
+        @apply transform transition duration-300 ease-in-out scale-100 opacity-100;
+    }
+
+    .wrapper {
+        @apply grid gap-5  text-red-500 h-full;
+    }
+    .inner {
+        @apply h-full w-full flex  items-center justify-center p-5 ;
     }
 }
 
