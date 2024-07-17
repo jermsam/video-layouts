@@ -14,6 +14,9 @@ export default {
             transform: 'scale(1) translateY(0)'
           }
         }
+      },
+      animation: {
+        show: 'show 0.4s ease',
       }
     },
   },

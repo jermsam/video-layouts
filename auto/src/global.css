@@ -6,8 +6,8 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-    box-sizing: border-box;
+* {
+    box-sizing: border-box !important;
 }
 
 html,
@@ -18,33 +18,30 @@ body {
 
 @layer base {
     .controls {
-        @apply  rounded-lg p-4 flex gap-4 flex-wrap justify-center items-center shadow-md;
+        @apply rounded-lg p-4 flex gap-4 flex-wrap justify-center items-center shadow-md;
     }
 }
 
 @layer components {
     .video-box {
-        @apply relative align-middle self-center rounded-md overflow-hidden inline-block shadow bg-gray-200;
+        @apply relative align-middle self-center rounded-md overflow-hidden inline-block shadow bg-gray-200 animate-show;
     }
     .button {
-        @apply flex justify-center items-center no-underline cursor-pointer shadow-md rounded text-sm uppercase tracking-[2px] select-none relative px-[15px] py-2.5
-        active:shadow-none;
+        @apply flex justify-center items-center no-underline cursor-pointer shadow-md rounded text-sm uppercase tracking-[2px] select-none relative px-[15px] py-2.5 active:shadow-none;
     }
-    .link{
+    .link {
         @apply text-black no-underline text-[13px] uppercase font-thin tracking-[4px] text-center flex items-center ml-auto;
     }
 }
 
 @layer utilities {
-
     /* Hide scrollbar for Chrome, Safari and Opera */
     .no-scrollbar::-webkit-scrollbar {
         display: none;
     }
     /* Hide scrollbar for IE, Edge and Firefox */
     .no-scrollbar {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
     }
 }
-
