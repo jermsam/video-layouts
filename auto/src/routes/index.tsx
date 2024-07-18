@@ -1,4 +1,4 @@
-import { $, component$, useOnDocument, useSignal, useTask$ } from '@builder.io/qwik';
+import {$, component$, useOnDocument, useOnWindow, useSignal, useTask$} from '@builder.io/qwik';
 import { DocumentHead, Link } from '@builder.io/qwik-city';
 import {
   AntDesignAimOutlined, AntDesignGithubOutlined,
@@ -61,9 +61,19 @@ export default component$(() => {
     return { containerWidth, containerHeight };
   });
 
-  const recalculateLayout = $(async () => {
+  const resizer = $((width: number, height: number, margin: number) => {
     if (!tileContainer.value) return;
+    const children = Array.from(tileContainer.value.children) as HTMLElement[];
+    for (const child of children) {
+      child.style.width = `${width}px`;
+      child.style.height = `${height}px`;
+      child.style.margin = `${margin / 2}px`; // Ensure margins are applied uniformly
+      child.className = 'video-box';
+    }
+  });
 
+  const resize = $(async () => {
+    if (!tileContainer.value) return;
     const containerDimensions = await getUsableDimensions();
     const tileCount = tileContainer.value.children.length;
     const aspectArray = aspectRatio.value.label.split(':');
@@ -82,47 +92,33 @@ export default component$(() => {
 
     width.value = dimensions.width - margin;
     height.value = dimensions.height - margin;
+   resizer(width.value, height.value, margin)
   });
 
-  const resizer = $((width: number, height: number, margin: number) => {
-    if (!tileContainer.value) return;
-    const children = Array.from(tileContainer.value.children) as HTMLElement[];
-    for (const child of children) {
-      child.style.width = `${width}px`;
-      child.style.height = `${height}px`;
-      child.style.margin = `${margin / 2}px`; // Ensure margins are applied uniformly
-      child.className = 'video-box';
-    }
-  });
 
-  const resize = $(async () => {
-    if (!tileContainer.value || !container.value) return;
-    await recalculateLayout();
-    resizer(width.value, height.value, margin);
-  });
 
-  const addParticipantCamera = $(() => {
+  const addParticipantCamera = $(async() => {
     if (!tileContainer.value) return;
     const card = document.createElement('div');
     tileContainer.value.appendChild(card);
-    resize();
+    await resize();
   });
 
-  const removeLastCamera = $(() => {
+  const removeLastCamera = $(async () => {
     if (!tileContainer.value) return;
     const children = Array.from(tileContainer.value.children);
     const deletedChild = children.pop();
     deletedChild?.remove();
-    resize();
+    await resize();
   });
 
-  useTask$(({ track }) => {
+  useTask$(async ({ track }) => {
     track(() => aspectRatio.value);
-    resize();
+    await resize();
   });
 
   useOnDocument('DOMContentLoaded', addParticipantCamera);
-  useOnDocument('resize', resize);
+  useOnWindow('resize', resize);
 
   return (
     <div class={'relative bg-gray-50 h-full no-scrollbar'}>
