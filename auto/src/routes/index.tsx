@@ -15,7 +15,7 @@ export interface AspectRatio {
   ratioClass: string,
 }
 
-const VIDEO_SRC = 'https://sg.fiverrcdn.com/packages_lp/cover_video.mp4';
+const VIDEO_SRC = 'video.mp4';
 
 const aspectRatios: AspectRatio[] = [
   {
