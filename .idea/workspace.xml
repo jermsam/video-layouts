@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d0ad3e73-fc4b-482a-b559-66fb1968e9c9" name="Changes" comment="layouts edited">
+    <list default="true" id="d0ad3e73-fc4b-482a-b559-66fb1968e9c9" name="Changes" comment="Reference for auto layout">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto/src/components/icons/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/auto/src/components/icons/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto/src/routes/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/auto/src/routes/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +131,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1720905128217</updated>
-      <workItem from="1720905129323" duration="145319000" />
+      <workItem from="1720905129323" duration="148757000" />
     </task>
     <task id="LOCAL-00001" summary="some requirements">
       <option name="closed" value="true" />
@@ -284,7 +285,23 @@
       <option name="project" value="LOCAL" />
       <updated>1721400889980</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Reference for auto layout">
+      <option name="closed" value="true" />
+      <created>1721401211853</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1721401211853</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Reference for auto layout">
+      <option name="closed" value="true" />
+      <created>1721401248934</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1721401248934</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -314,6 +331,7 @@
     <MESSAGE value="place-items-center instead of justify-center and items-center" />
     <MESSAGE value="object-center" />
     <MESSAGE value="layouts edited" />
-    <option name="LAST_COMMIT_MESSAGE" value="layouts edited" />
+    <MESSAGE value="Reference for auto layout" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reference for auto layout" />
   </component>
 </project>

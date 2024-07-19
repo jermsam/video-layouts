@@ -1,11 +1,17 @@
-import {$, component$, useOnDocument, useOnWindow, useSignal} from '@builder.io/qwik';
+import {
+  $,
+  component$,
+  useOnDocument,
+  useOnWindow,
+  useSignal,
+} from '@builder.io/qwik';
 import {DocumentHead, Link} from '@builder.io/qwik-city';
 import {
   AntDesignGithubOutlined,
   Fa6SolidPlus,
   MaterialSymbolsDelete,
   MaterialSymbolsDesktopWindowsRounded,
-  MaterialSymbolsFullscreen,
+  MaterialSymbolsSplitscreenRightOutlineSharp,
 } from '~/components/icons';
 import {largestRect} from 'rect-scaler';
 
@@ -45,6 +51,7 @@ const margin = 10;
 export default component$(() => {
   const isVideo = useSignal<boolean>(true);
   const sidebar = useSignal<boolean>(false);
+  const showAdvancedLayoutOptions = useSignal<boolean>(false);
   const container = useSignal<HTMLDivElement>();
   const tileContainer = useSignal<HTMLDivElement>();
   const aspectRatio = useSignal<AspectRatio>();
@@ -77,6 +84,8 @@ export default component$(() => {
       child.style.margin = `${margin / 2}px`; // Ensure margins are applied uniformly
       child.className = 'video-box';
     }
+    showAdvancedLayoutOptions.value =  (children.length > (sidebar.value ? 0 :1) )
+
   });
 
   const resize = $(async () => {
@@ -122,14 +131,6 @@ export default component$(() => {
     await resize();
   });
 
-  const removeLastCamera = $(async () => {
-    if (!tileContainer.value) return;
-    const children = Array.from(tileContainer.value.children);
-    const deletedChild = children.pop();
-    deletedChild?.remove();
-    await resize();
-  });
-
   const showVideo = $(()=>{
     if (!tileContainer.value) return;
     const children = Array.from(tileContainer.value.children) as HTMLElement[];
@@ -145,6 +146,8 @@ export default component$(() => {
       }
     }
   })
+
+
 
   const showSideBar = $(async ()=>{
     if (!tileContainer.value || !container.value) return;
@@ -182,12 +185,25 @@ export default component$(() => {
     }
   })
 
+  const removeLastCamera = $(async () => {
+    if (!tileContainer.value) return;
+   let children = Array.from(tileContainer.value.children);
+    const deletedChild = children.pop();
+    deletedChild?.remove();
+    children = Array.from(tileContainer.value.children);
+    if(sidebar.value && !children.length) {
+      await showSideBar()
+    } else {
+      await resize();
+    }
+
+
+  });
+
 const changeAspectRatio = $(async (ratio: AspectRatio) => {
   aspectRatio.value = ratio
   await resize();
 })
-
-
 
 
   useOnDocument('DOMContentLoaded', addParticipantCamera);
@@ -206,9 +222,12 @@ const changeAspectRatio = $(async (ratio: AspectRatio) => {
           <button class={`button ${isVideo.value ? 'is-active' : ''}`} onClick$={showVideo}>
             <MaterialSymbolsDesktopWindowsRounded/>
           </button>
-          <button class={`button  ${sidebar.value ? 'is-active' : ''}`} onClick$={showSideBar}>
-            <MaterialSymbolsFullscreen/>
+
+          {showAdvancedLayoutOptions.value &&
+            <button class={`button  ${sidebar.value ? 'is-active' : ''}`} onClick$={showSideBar}>
+            <MaterialSymbolsSplitscreenRightOutlineSharp/>
           </button>
+          }
 
           {aspectRatios.map((ratio, index) => (
             <button key={index}
