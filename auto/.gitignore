@@ -24,8 +24,8 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # Editor
-.vscode/*
-!.vscode/launch.json
+.vscode/launch.json
+!auto/.vscode/launch.json
 !.vscode/*.code-snippets
 
 .idea
