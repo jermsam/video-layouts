@@ -6,6 +6,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    box-sizing: border-box !important;
+}
+
 html,
 body {
     height: 100%;
@@ -14,42 +18,39 @@ body {
 
 @layer base {
     .controls {
-        @apply  rounded-lg p-4 flex gap-4 flex-wrap justify-center items-center shadow-md;
-    }
-    .conference {
-        @apply flex flex-1 rounded-lg gap-5 max-w-full max-h-full;
-    }
-    .dish {
-        @apply overflow-scroll flex content-center flex-wrap items-center justify-center align-middle flex-1 rounded-lg bg-green-100;
-    }
-    .participant {
-        @apply bg-blue-950  rounded-lg relative overflow-hidden;
+        @apply rounded-lg p-4 flex gap-4 flex-wrap justify-center items-center shadow-md;
     }
 }
 
 @layer components {
-    .video-item {
-        @apply absolute inset-0 aspect-video w-full h-full bg-black rounded-lg transition-all ease-in-out duration-1000 mt-4 hover:mt-8;
+    .video-box {
+        @apply relative align-middle self-center rounded-md overflow-hidden inline-block shadow bg-yellow-300 animate-show;
+    }
+    .video {
+        @apply absolute inset-0 w-full h-full object-cover rounded-lg overflow-hidden  transition-all ease-in-out duration-1000;
     }
     .button {
-        @apply flex justify-center items-center no-underline cursor-pointer shadow-md rounded text-sm uppercase tracking-[2px] select-none relative px-[15px] py-2.5
-        active:shadow-none;
+        @apply flex justify-center items-center no-underline cursor-pointer shadow-md rounded text-sm uppercase tracking-[2px] select-none relative px-[15px] py-2.5 active:shadow-none;
+
     }
-    .link{
+    .link {
         @apply text-black no-underline text-[13px] uppercase font-thin tracking-[4px] text-center flex items-center ml-auto;
     }
 }
 
 @layer utilities {
-    .show {
-        @apply transform transition duration-300 ease-in-out scale-100 opacity-100;
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
     }
-
-    .wrapper {
-        @apply grid gap-5  text-red-500 h-full;
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
     }
-    .inner {
-        @apply h-full w-full flex  items-center justify-center p-5 ;
+    .is-active {
+        @apply after:bg-green-300
+        after:content-[""] after:block after:h-2.5 after:w-2.5 after:absolute after:right-[-3px] after:top-[-3px] after:border after:shadow-md
+        after:animate-pulse-green after:rounded after:border-solid after:border-gray-50
     }
 }
-

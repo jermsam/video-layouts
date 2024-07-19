@@ -1,19 +1,23 @@
-import {$, component$,  useOnDocument, useSignal,  useTask$} from '@builder.io/qwik';
+import {$, component$, useOnDocument, useOnWindow, useSignal} from '@builder.io/qwik';
 import {DocumentHead, Link} from '@builder.io/qwik-city';
 import {
-  AntDesignAimOutlined, AntDesignGithubOutlined,
+  AntDesignGithubOutlined,
   Fa6SolidPlus,
   MaterialSymbolsDelete,
   MaterialSymbolsDesktopWindowsRounded,
   MaterialSymbolsFullscreen,
 } from '~/components/icons';
-import {largestRect, largestSquare} from 'rect-scaler';
+import {largestRect} from 'rect-scaler';
 
-const VIDEO_SRC =
-  'https://cdn.builder.io/o/assets%2F5b8073f890b043be81574f96cfd1250b%2F8b210c56974440649a0a78d4a3a0ddc5%2Fcompressed?apiKey=5b8073f890b043be81574f96cfd1250b&token=8b210c56974440649a0a78d4a3a0ddc5&alt=media&optimized=true';
+export interface AspectRatio {
+  ratio: number,
+  label: string,
+  ratioClass: string,
+}
 
+const VIDEO_SRC = 'video.mp4';
 
-const aspectRatios = [
+const aspectRatios: AspectRatio[] = [
   {
     ratio: 16 / 9,
     label: '16:9',
@@ -36,150 +40,196 @@ const aspectRatios = [
   },
 ];
 
+const margin = 10;
+
 export default component$(() => {
+  const isVideo = useSignal<boolean>(true);
+  const sidebar = useSignal<boolean>(false);
   const container = useSignal<HTMLDivElement>();
   const tileContainer = useSignal<HTMLDivElement>();
-  const aspectRatio = useSignal({
-    ratio: 16 / 9,
-    label: '16:9',
-    ratioClass: 'aspect-[16/9]',
-  });
+  const aspectRatio = useSignal<AspectRatio>();
 
-  const cols = useSignal(1);
-  const rows = useSignal(1);
   const width = useSignal(0);
   const height = useSignal(0);
 
+  const getUsableDimensions = $(() => {
+    if (!tileContainer.value) return {usableWidth: 0, usableHeight: 0};
+    const containerComputedStyle = getComputedStyle(tileContainer.value);
+    const containerPaddingX =
+      parseInt(containerComputedStyle.paddingLeft.replace('px', ''), 10) +
+      parseInt(containerComputedStyle.paddingRight.replace('px', ''), 10);
+    const containerPaddingY =
+      parseInt(containerComputedStyle.paddingTop.replace('px', ''), 10) +
+      parseInt(containerComputedStyle.paddingBottom.replace('px', ''), 10);
 
-  const recalculateLayout = $((adjustCount=0) => {
-    if (tileContainer.value) {
-      const containerComputedStyle = getComputedStyle(tileContainer.value);
-      const containerPaddingX =
-        parseInt(containerComputedStyle.paddingLeft.replace('px',''),10) +
-        parseInt(containerComputedStyle.paddingRight.replace('px',''),10);
-      const containerPaddingY =
-        parseInt(containerComputedStyle.paddingTop.replace('px',''),10) +
-        parseInt(containerComputedStyle.paddingBottom.replace('px',''),10);
+    const containerWidth = tileContainer.value.offsetWidth - containerPaddingX;
+    const containerHeight = tileContainer.value.offsetHeight - containerPaddingY;
 
-      const containerWidth = tileContainer.value.offsetWidth - containerPaddingX  ;
-      const containerHeight = tileContainer.value.offsetHeight - containerPaddingY;
+    return {containerWidth, containerHeight};
+  });
 
-      const tileCount = (tileContainer.value.children.length) + adjustCount;
-
-      const rowGap =  containerComputedStyle.rowGap;
-      let columnGap = containerComputedStyle.columnGap;
-
-      console.log({containerHeight, containerWidth, containerPaddingX,containerPaddingY});
-      //
-      const aspectArray = aspectRatio.value.label.split(':');
-      const aspectWidth = Number(aspectArray[0]);
-      const aspectHeight = Number(aspectArray[1]);
-      const dimensions = largestRect(
-        containerWidth,
-        containerHeight,
-        tileCount,
-        aspectWidth,
-        aspectHeight,
-      );
-      //
-      cols.value = dimensions.cols;
-      width.value = dimensions.width;
-      if(columnGap !=='normal') {
-        width.value = width.value - parseInt(columnGap.replace('px',''),10)
-      }
-      height.value = dimensions.height;
-      if(rowGap !=='normal') {
-        height.value = height.value - parseInt(rowGap.replace('px',''),10)
-      }
+  const resizer = $((width: number, height: number, margin: number) => {
+    if (!tileContainer.value) return;
+    const children = Array.from(tileContainer.value.children) as HTMLElement[];
+    for (const child of children) {
+      child.style.width = `${width}px`;
+      child.style.height = `${height}px`;
+      child.style.margin = `${margin / 2}px`; // Ensure margins are applied uniformly
+      child.className = 'video-box';
     }
   });
 
-  const addParticipantCamera = $(async () => {
-    if(!tileContainer.value) return
-    await recalculateLayout(1);
-    const card = document.createElement('div');
-    for (const child  of [...Array.from(tileContainer.value.children), card] as HTMLElement[]){
-      child.style.width=  `${width.value}px`;
-      child.style.height=  `${height.value}px`;
-      child.className='bg-gray-200 rounded-md overflow-hidden transition-opacity duration-500  flex items-center justify-center';
+  const resize = $(async () => {
+    if (!tileContainer.value) return;
+    if(!aspectRatio.value) {
+      aspectRatio.value = aspectRatios[0];
     }
-    tileContainer.value.appendChild(card)
+    const tileCount = tileContainer.value.children.length;
+    if(!tileCount) return;
+    const containerDimensions = await getUsableDimensions();
+
+    const aspectArray = aspectRatio.value.label.split(':');
+    const aspectWidth = Number(aspectArray[0]);
+    const aspectHeight = Number(aspectArray[1]);
+    const containerWidth = containerDimensions.containerWidth as number;
+    const containerHeight = containerDimensions.containerHeight as number;
+
+    const dimensions = largestRect(
+      containerWidth,
+      containerHeight,
+      tileCount,
+      aspectWidth,
+      aspectHeight,
+    );
+
+    width.value = dimensions.width - margin;
+    height.value = dimensions.height - margin;
+    await resizer(width.value, height.value, margin);
+  });
+
+
+  const addParticipantCamera = $(async () => {
+    if (!tileContainer.value) return;
+    const card = document.createElement('div');
+    const video = document.createElement('video');
+    video.autoplay = true;
+    video.muted = true
+    video.className =  `video ${isVideo.value ? 'opacity-1': 'opacity-0'}`
+    video.src= VIDEO_SRC
+    video.loop = true
+    card.appendChild(video)
+    tileContainer.value.appendChild(card);
+    await resize();
   });
 
   const removeLastCamera = $(async () => {
-    if(!tileContainer.value) return
+    if (!tileContainer.value) return;
     const children = Array.from(tileContainer.value.children);
     const deletedChild = children.pop();
-    deletedChild?.remove()
-    await recalculateLayout();
-    for (const child  of [...Array.from(tileContainer.value.children)] as HTMLElement[]){
-      child.style.width=  `${width.value}px`;
-      child.style.height=  `${height.value}px`;
-      child.className=`bg-gray-200 rounded-md overflow-hidden transition-opacity duration-500  flex items-center justify-center`;
+    deletedChild?.remove();
+    await resize();
+  });
+
+  const showVideo = $(()=>{
+    if (!tileContainer.value) return;
+    const children = Array.from(tileContainer.value.children) as HTMLElement[];
+    isVideo.value = !isVideo.value
+    for (const child of children) {
+     const  videoElement = child.querySelector('video') as HTMLVideoElement;
+      if(isVideo.value) {
+        videoElement.classList.remove('opacity-0');
+        videoElement.classList.add('opacity-1');
+      } else {
+        videoElement.classList.remove('opacity-1');
+        videoElement.classList.add('opacity-0');
+      }
     }
   })
 
-  useTask$(async ({track}) => {
-    track(() => aspectRatio.value)
-    if(!tileContainer.value) return
-    await recalculateLayout();
-    for (const child  of [...Array.from(tileContainer.value.children)] as HTMLElement[]){
-      child.style.width=  `${width.value}px`;
-      child.style.height=  `${height.value}px`;
-      child.className='bg-gray-200 rounded-md overflow-hidden transition-opacity duration-500  flex items-center justify-center';
+  const showSideBar = $(async ()=>{
+    if (!tileContainer.value || !container.value) return;
+    const children = Array.from(tileContainer.value.children) as HTMLElement[];
+    sidebar.value = !sidebar.value;
+    const containerComputedStyle = getComputedStyle(tileContainer.value);
+    const containerPaddingY =
+      parseInt(containerComputedStyle.paddingTop.replace('px', ''), 10) +
+      parseInt(containerComputedStyle.paddingBottom.replace('px', ''), 10);
+    const screenHeight = tileContainer.value.offsetHeight -containerPaddingY;
+    if(sidebar.value && children.length > 1){
+      tileContainer.value.classList.add('bg-yellow-300')
+      const screen = children.pop() as HTMLElement;
+      screen.style.width = '60%'
+      screen.style.height = `${screenHeight}px`
+      screen.id = 'screen'
+      // const child = children.pop() as HTMLElement
+      // screen.appendChild(child)
+      container.value.innerHTML=''
+      tileContainer.value.innerHTML= '';
+      container.value?.appendChild(screen)
+      tileContainer.value.style.maxHeight = `${screenHeight}px`
+      container.value.appendChild(tileContainer.value)
+      for (const child of children) {
+        tileContainer.value.appendChild(child)
+      }
+      await resize()
+    } else {
+      const screen = document.getElementById('screen') as HTMLElement;
+      screen.id = '';
+      tileContainer.value.classList.remove('bg-yellow-300')
+      container.value.removeChild(screen);
+      tileContainer.value.appendChild(screen)
+      await resize()
     }
   })
 
-  useOnDocument('DOMContentLoaded', $(async () => {
-    await addParticipantCamera()
-  }));
-  useOnDocument('resize', $(async () => {
-    await recalculateLayout(1)
-  }));
+const changeAspectRatio = $(async (ratio: AspectRatio) => {
+  aspectRatio.value = ratio
+  await resize();
+})
 
 
+
+
+  useOnDocument('DOMContentLoaded', addParticipantCamera);
+  useOnWindow('resize', resize);
 
   return (
-    <div class={'relative bg-gray-50 h-full'}>
-      <section class={'absolute inset-0 bg-gray-100 flex flex-col'}>
+    <div class={'relative bg-yellow-50 h-full no-scrollbar'}>
+      <section class={'absolute inset-0 bg-yellow-300 flex flex-col'}>
         <section class={'controls'}>
-          <button class={'button bg-blue-500 text-white'} onClick$={addParticipantCamera}>
+          <button class={'button bg-orange-500 text-white'} onClick$={addParticipantCamera}>
             <Fa6SolidPlus/>
           </button>
           <button class={'button bg-red-500 text-white'} onClick$={removeLastCamera}>
             <MaterialSymbolsDelete/>
           </button>
-          <button class={'button'}>
+          <button class={`button ${isVideo.value ? 'is-active' : ''}`} onClick$={showVideo}>
             <MaterialSymbolsDesktopWindowsRounded/>
           </button>
-          <button class={'button'}>
+          <button class={`button  ${sidebar.value ? 'is-active' : ''}`} onClick$={showSideBar}>
             <MaterialSymbolsFullscreen/>
           </button>
-          <button class={'button '}>
-            <AntDesignAimOutlined/>
-          </button>
-          {
-            aspectRatios.map((ratio, index) =>
-              <button key={index} class={'button'} onClick$={() => aspectRatio.value = ratio}>
-                {ratio.label}
-              </button>,
-            )
-          }
-          {rows.value}: {cols.value}
-          <Link href="https://github.com/Alicunde/Videoconference-Dish-CSS-JS" class="link">
+
+          {aspectRatios.map((ratio, index) => (
+            <button key={index}
+                    class={`button ${aspectRatio.value?.ratioClass === ratio.ratioClass ? 'is-active' : ''}`}
+                    onClick$={()=>changeAspectRatio(ratio)}>
+              {ratio.label}
+            </button>
+          ))}
+          <Link href="https://github.com/jermsam/video-layouts" class="link">
             Github
             <AntDesignGithubOutlined/>
           </Link>
         </section>
         <section
-          id={'p'}
-          style={{
-          height: 'calc(100% - (72px + 1rem))'
-        }}
           ref={container}
-          class={'flex flex-col bg-gray-50 items-center justify-center p-5'}
+          class={'flex flex-1 justify-around rounded-md bg-yellow-400 max-h-full max-w-full p-5'}
         >
-          <div class={'flex flex-wrap align-center items-center justify-center gap-2 m-5 h-full w-full'} ref={tileContainer}/>
+          <div
+            class={'overflow-scroll justify-center flex flex-wrap content-center flex-1 rounded-md no-scrollbar'}
+            ref={tileContainer}
+          />
         </section>
       </section>
     </div>

@@ -27,9 +27,9 @@ export default component$(() => {
             href={`${import.meta.env.BASE_URL}manifest.json`}
           />
         )}
-        <RouterHead />
+        <RouterHead /><title></title>
       </head>
-      <body lang="en">
+      <body lang="en" class={'no-scrollbar'}>
         <RouterOutlet />
         {!isDev && <ServiceWorkerRegister />}
       </body>
