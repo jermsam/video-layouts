@@ -47,7 +47,7 @@ export default component$(() => {
   const sidebar = useSignal<boolean>(false);
   const container = useSignal<HTMLDivElement>();
   const tileContainer = useSignal<HTMLDivElement>();
-  const aspectRatio = useSignal<AspectRatio>(aspectRatios[0]);
+  const aspectRatio = useSignal<AspectRatio>();
 
   const width = useSignal(0);
   const height = useSignal(0);
@@ -81,6 +81,9 @@ export default component$(() => {
 
   const resize = $(async () => {
     if (!tileContainer.value) return;
+    if(!aspectRatio.value) {
+      aspectRatio.value = aspectRatios[0];
+    }
     const tileCount = tileContainer.value.children.length;
     if(!tileCount) return;
     const containerDimensions = await getUsableDimensions();
@@ -209,7 +212,7 @@ const changeAspectRatio = $(async (ratio: AspectRatio) => {
 
           {aspectRatios.map((ratio, index) => (
             <button key={index}
-                    class={`button ${aspectRatio.value.ratioClass === ratio.ratioClass ? 'is-active' : ''}`}
+                    class={`button ${aspectRatio.value?.ratioClass === ratio.ratioClass ? 'is-active' : ''}`}
                     onClick$={()=>changeAspectRatio(ratio)}>
               {ratio.label}
             </button>
