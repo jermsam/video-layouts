@@ -18,7 +18,7 @@ body {
 
 @layer base {
     .controls {
-        @apply rounded-lg p-4 flex gap-4 flex-wrap justify-center items-center shadow-md;
+        @apply rounded-lg p-4 flex gap-4 flex-wrap place-items-center shadow-md;
     }
 }
 
@@ -30,7 +30,7 @@ body {
         @apply absolute inset-0 w-full h-full object-cover rounded-lg overflow-hidden  transition-all ease-in-out duration-1000;
     }
     .button {
-        @apply flex justify-center items-center no-underline cursor-pointer shadow-md rounded text-sm uppercase tracking-[2px] select-none relative px-[15px] py-2.5 active:shadow-none;
+        @apply flex place-items-center no-underline cursor-pointer shadow-md rounded text-sm uppercase tracking-[2px] select-none relative px-[15px] py-2.5 active:shadow-none;
 
     }
     .link {

@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d0ad3e73-fc4b-482a-b559-66fb1968e9c9" name="Changes" comment="add video to readme">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/auto/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto/src/global.css" beforeDir="false" afterPath="$PROJECT_DIR$/auto/src/global.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +18,13 @@
       <list>
         <option value="TypeScript File" />
       </list>
+    </option>
+  </component>
+  <component name="Git.Pull.Settings">
+    <option name="OPTIONS">
+      <set>
+        <option value="REBASE" />
+      </set>
     </option>
   </component>
   <component name="Git.Settings">
@@ -102,7 +109,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1720905128217</updated>
-      <workItem from="1720905129323" duration="141627000" />
+      <workItem from="1720905129323" duration="142880000" />
     </task>
     <task id="LOCAL-00001" summary="some requirements">
       <option name="closed" value="true" />
@@ -200,7 +207,31 @@
       <option name="project" value="LOCAL" />
       <updated>1721368786202</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="add video to readme">
+      <option name="closed" value="true" />
+      <created>1721369165752</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1721369165752</updated>
+    </task>
+    <task id="LOCAL-00014" summary="add video to readme">
+      <option name="closed" value="true" />
+      <created>1721369209707</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1721369209707</updated>
+    </task>
+    <task id="LOCAL-00015" summary="add video to readme">
+      <option name="closed" value="true" />
+      <created>1721369371310</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1721369371310</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
