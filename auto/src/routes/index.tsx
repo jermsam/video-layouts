@@ -197,7 +197,7 @@ const changeAspectRatio = $(async (ratio: AspectRatio) => {
     <div class={'relative bg-yellow-50 h-full no-scrollbar'}>
       <section class={'absolute inset-0 bg-yellow-300 flex flex-col'}>
         <section class={'controls'}>
-          <button class={'button bg-blue-500 text-white'} onClick$={addParticipantCamera}>
+          <button class={'button bg-orange-500 text-white'} onClick$={addParticipantCamera}>
             <Fa6SolidPlus/>
           </button>
           <button class={'button bg-red-500 text-white'} onClick$={removeLastCamera}>
