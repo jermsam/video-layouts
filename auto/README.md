@@ -10,4 +10,4 @@ Basic Video Layout for all conferencing apps
 1.  CSS3 Grid, does not respect the aspect ratio of the tiles
 2.  Flex, does not cover defined surfaces.
 
-![alt text](video.png)
+![alt text](https://github.com/jermsam/video-layouts/blob/main/auto/public/video.png)
