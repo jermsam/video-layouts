@@ -27,7 +27,7 @@ body {
         @apply relative align-middle self-center rounded-md overflow-hidden inline-block shadow bg-yellow-300 animate-show;
     }
     .video {
-        @apply absolute inset-0 w-full h-full object-cover rounded-lg overflow-hidden  transition-all ease-in-out duration-1000;
+        @apply absolute inset-0 w-full h-full object-cover object-center rounded-lg overflow-hidden  transition-all ease-in-out duration-1000;
     }
     .button {
         @apply flex place-items-center no-underline cursor-pointer shadow-md rounded text-sm uppercase tracking-[2px] select-none relative px-[15px] py-2.5 active:shadow-none;
