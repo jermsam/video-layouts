@@ -24,10 +24,14 @@ body {
 
 @layer components {
     .video-box {
-        @apply relative align-middle self-center rounded-md overflow-hidden inline-block shadow bg-gray-200 animate-show;
+        @apply relative align-middle self-center rounded-md overflow-hidden inline-block shadow bg-yellow-300 animate-show;
+    }
+    .video {
+        @apply absolute inset-0 w-full h-full object-cover rounded-lg overflow-hidden  transition-all ease-in-out duration-1000;
     }
     .button {
         @apply flex justify-center items-center no-underline cursor-pointer shadow-md rounded text-sm uppercase tracking-[2px] select-none relative px-[15px] py-2.5 active:shadow-none;
+
     }
     .link {
         @apply text-black no-underline text-[13px] uppercase font-thin tracking-[4px] text-center flex items-center ml-auto;
@@ -43,5 +47,10 @@ body {
     .no-scrollbar {
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
+    }
+    .is-active {
+        @apply after:bg-green-300
+        after:content-[""] after:block after:h-2.5 after:w-2.5 after:absolute after:right-[-3px] after:top-[-3px] after:border after:shadow-md
+        after:animate-pulse-green after:rounded after:border-solid after:border-gray-50
     }
 }
