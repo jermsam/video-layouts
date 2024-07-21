@@ -86,7 +86,7 @@ export default component$(() => {
       child.style.margin = `${margin / 2}px`; // Ensure margins are applied uniformly
       child.className = 'video-box';
     }
-    showAdvancedLayoutOptions.value = (children.length > (sidebar.value ? 0 : 1));
+    showAdvancedLayoutOptions.value = sidebar.value || spotlight.value || (children.length > ((sidebar.value ) ? 0 : 1));
 
   });
 
@@ -159,6 +159,7 @@ export default component$(() => {
     const thumbnail = screen.querySelector('div');
     if (thumbnail) {
       screen.removeChild(thumbnail)
+      console.log('wait....');
       tileContainer.value.appendChild(thumbnail);
     }
     container.value.removeChild(screen);
@@ -187,13 +188,18 @@ export default component$(() => {
 
   const showSideBar = $(async () => {
     if (!tileContainer.value || !container.value) return;
-    const children = Array.from(tileContainer.value.children) as HTMLElement[];
+
     sidebar.value = !sidebar.value;
     if (sidebar.value) {
+      showAdvancedLayoutOptions.value=true
       if(spotlight.value) {
+        const screen = document.getElementById('screen') as HTMLElement;
+        const thumbnail = screen.querySelector('div') as HTMLElement;
+        tileContainer.value.appendChild(thumbnail)
         await removeScreen();
         spotlight.value = false;
       }
+      const children = Array.from(tileContainer.value.children) as HTMLElement[];
       tileContainer.value.classList.add('bg-yellow-300');
       const screen = children.pop() as HTMLElement;
       screen.style.width = '70%';
@@ -208,6 +214,7 @@ export default component$(() => {
     spotlight.value = !spotlight.value;
 
     if(spotlight.value) {
+      showAdvancedLayoutOptions.value=true
       if(sidebar.value) {
         await removeScreen();
         sidebar.value = false;
@@ -217,7 +224,6 @@ export default component$(() => {
       let thumbnail;
       if(!screen) {
         screen = children.pop() as HTMLElement;
-        // tileContainer.value.removeChild(screen)
       }
       thumbnail = children.pop() as HTMLElement
       tileContainer.value.removeChild(thumbnail)

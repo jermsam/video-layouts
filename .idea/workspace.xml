@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d0ad3e73-fc4b-482a-b559-66fb1968e9c9" name="Changes" comment="close sidebar if all participants in sidebar leave">
+    <list default="true" id="d0ad3e73-fc4b-482a-b559-66fb1968e9c9" name="Changes" comment="spotlight">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto/src/components/icons/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/auto/src/components/icons/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auto/src/routes/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/auto/src/routes/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -133,7 +132,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1720905128217</updated>
-      <workItem from="1720905129323" duration="175473000" />
+      <workItem from="1720905129323" duration="178893000" />
     </task>
     <task id="LOCAL-00001" summary="some requirements">
       <option name="closed" value="true" />
@@ -311,7 +310,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721408758495</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="spotlight">
+      <option name="closed" value="true" />
+      <created>1721547973056</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1721547973056</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -343,6 +350,7 @@
     <MESSAGE value="layouts edited" />
     <MESSAGE value="Reference for auto layout" />
     <MESSAGE value="close sidebar if all participants in sidebar leave" />
-    <option name="LAST_COMMIT_MESSAGE" value="close sidebar if all participants in sidebar leave" />
+    <MESSAGE value="spotlight" />
+    <option name="LAST_COMMIT_MESSAGE" value="spotlight" />
   </component>
 </project>
