@@ -28,9 +28,16 @@ export function MaterialSymbolsFullscreen(props: QwikIntrinsicElements['svg'], k
 }
 
 
-export function MaterialSymbolsSplitscreenRightOutlineSharp(props: QwikIntrinsicElements['svg'], key: string) {
+export function MaterialSymbolsSpaceDashboardOutlineSharp(props: QwikIntrinsicElements['svg'], key: string) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props} key={key}><path fill="currentColor" d="M13 21V3h8v18zM3 21V3h8v18zM5 5v14h4V5zm4 14H5z"></path></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props} key={key}><path fill="currentColor" d="M3 21V3h18v18zm2-2h6V5H5zm8 0h6v-7h-6zm0-9h6V5h-6z"></path></svg>
+  )
+}
+
+
+export function MaterialSymbolsLightCropLandscapeOutline(props: QwikIntrinsicElements['svg'], key: string) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props} key={key}><path fill="currentColor" d="M4.616 19q-.691 0-1.153-.462T3 17.384V6.616q0-.691.463-1.153T4.615 5h14.77q.69 0 1.152.463T21 6.616v10.769q0 .69-.463 1.153T19.385 19zm0-1h14.769q.23 0 .423-.192t.192-.424V6.616q0-.231-.192-.424T19.385 6H4.615q-.23 0-.423.192T4 6.616v10.769q0 .23.192.423t.423.192M4 18V6z"></path></svg>
   )
 }
 

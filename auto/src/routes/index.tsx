@@ -11,7 +11,8 @@ import {
   Fa6SolidPlus,
   MaterialSymbolsDelete,
   MaterialSymbolsDesktopWindowsRounded,
-  MaterialSymbolsSplitscreenRightOutlineSharp,
+  MaterialSymbolsLightCropLandscapeOutline,
+  MaterialSymbolsSpaceDashboardOutlineSharp,
 } from '~/components/icons';
 import {largestRect} from 'rect-scaler';
 
@@ -51,6 +52,7 @@ const margin = 10;
 export default component$(() => {
   const isVideo = useSignal<boolean>(true);
   const sidebar = useSignal<boolean>(false);
+  const spotlight = useSignal<boolean>(false);
   const showAdvancedLayoutOptions = useSignal<boolean>(false);
   const container = useSignal<HTMLDivElement>();
   const tileContainer = useSignal<HTMLDivElement>();
@@ -84,17 +86,17 @@ export default component$(() => {
       child.style.margin = `${margin / 2}px`; // Ensure margins are applied uniformly
       child.className = 'video-box';
     }
-    showAdvancedLayoutOptions.value =  (children.length > (sidebar.value ? 0 :1) )
+    showAdvancedLayoutOptions.value = (children.length > (sidebar.value ? 0 : 1));
 
   });
 
   const resize = $(async () => {
     if (!tileContainer.value) return;
-    if(!aspectRatio.value) {
+    if (!aspectRatio.value) {
       aspectRatio.value = aspectRatios[0];
     }
     const tileCount = tileContainer.value.children.length;
-    if(!tileCount) return;
+    if (!tileCount) return;
     const containerDimensions = await getUsableDimensions();
 
     const aspectArray = aspectRatio.value.label.split(':');
@@ -122,22 +124,22 @@ export default component$(() => {
     const card = document.createElement('div');
     const video = document.createElement('video');
     video.autoplay = true;
-    video.muted = true
-    video.className =  `video ${isVideo.value ? 'opacity-1': 'opacity-0'}`
-    video.src= VIDEO_SRC
-    video.loop = true
-    card.appendChild(video)
+    video.muted = true;
+    video.className = `video ${isVideo.value ? 'opacity-1' : 'opacity-0'}`;
+    video.src = VIDEO_SRC;
+    video.loop = true;
+    card.appendChild(video);
     tileContainer.value.appendChild(card);
     await resize();
   });
 
-  const showVideo = $(()=>{
+  const showVideo = $(() => {
     if (!tileContainer.value) return;
     const children = Array.from(tileContainer.value.children) as HTMLElement[];
-    isVideo.value = !isVideo.value
+    isVideo.value = !isVideo.value;
     for (const child of children) {
-     const  videoElement = child.querySelector('video') as HTMLVideoElement;
-      if(isVideo.value) {
+      const videoElement = child.querySelector('video') as HTMLVideoElement;
+      if (isVideo.value) {
         videoElement.classList.remove('opacity-0');
         videoElement.classList.add('opacity-1');
       } else {
@@ -145,65 +147,112 @@ export default component$(() => {
         videoElement.classList.add('opacity-0');
       }
     }
+  });
+
+
+  const removeScreen = $(async () => {
+    if (!tileContainer.value || !container.value) return;
+    const screen = document.getElementById('screen') as HTMLElement;
+    screen.id = '';
+    tileContainer.value.classList.remove('bg-yellow-300');
+    screen.classList.remove('relative');
+    const thumbnail = screen.querySelector('div');
+    if (thumbnail) {
+      screen.removeChild(thumbnail)
+      tileContainer.value.appendChild(thumbnail);
+    }
+    container.value.removeChild(screen);
+    tileContainer.value.appendChild(screen);
+    await resize();
+  })
+
+  const addScreen = $(async (screenToAdd: HTMLElement) => {
+    const screen = document.getElementById('screen') as HTMLElement;
+    if (screen || !tileContainer.value || !container.value) return;
+    tileContainer.value.removeChild(screenToAdd)
+    const tileContainerComputedStyle = getComputedStyle(tileContainer.value);
+    const tileContainerPaddingY =
+      parseInt(tileContainerComputedStyle.paddingTop.replace('px', ''), 10) +
+      parseInt(tileContainerComputedStyle.paddingBottom.replace('px', ''), 10);
+    const screenHeight = tileContainer.value.offsetHeight - tileContainerPaddingY;
+    screenToAdd.style.height = `${screenHeight}px`;
+    screenToAdd.id = 'screen';
+    container.value.innerHTML = '';
+    container.value?.appendChild(screenToAdd);
+    tileContainer.value.style.maxHeight = `${screenHeight}px`;
+    container.value.appendChild(tileContainer.value);
+    await resize();
   })
 
 
-
-  const showSideBar = $(async ()=>{
+  const showSideBar = $(async () => {
     if (!tileContainer.value || !container.value) return;
     const children = Array.from(tileContainer.value.children) as HTMLElement[];
     sidebar.value = !sidebar.value;
-    const containerComputedStyle = getComputedStyle(tileContainer.value);
-    const containerPaddingY =
-      parseInt(containerComputedStyle.paddingTop.replace('px', ''), 10) +
-      parseInt(containerComputedStyle.paddingBottom.replace('px', ''), 10);
-    const screenHeight = tileContainer.value.offsetHeight -containerPaddingY;
-    if(sidebar.value && children.length > 1){
-      tileContainer.value.classList.add('bg-yellow-300')
-      const screen = children.pop() as HTMLElement;
-      screen.style.width = '60%'
-      screen.style.height = `${screenHeight}px`
-      screen.id = 'screen'
-      // const child = children.pop() as HTMLElement
-      // screen.appendChild(child)
-      container.value.innerHTML=''
-      tileContainer.value.innerHTML= '';
-      container.value?.appendChild(screen)
-      tileContainer.value.style.maxHeight = `${screenHeight}px`
-      container.value.appendChild(tileContainer.value)
-      for (const child of children) {
-        tileContainer.value.appendChild(child)
+    if (sidebar.value) {
+      if(spotlight.value) {
+        await removeScreen();
+        spotlight.value = false;
       }
-      await resize()
+      tileContainer.value.classList.add('bg-yellow-300');
+      const screen = children.pop() as HTMLElement;
+      screen.style.width = '70%';
+      await addScreen(screen)
     } else {
-      const screen = document.getElementById('screen') as HTMLElement;
-      screen.id = '';
-      tileContainer.value.classList.remove('bg-yellow-300')
-      container.value.removeChild(screen);
-      tileContainer.value.appendChild(screen)
-      await resize()
+      await removeScreen();
     }
-  })
+  });
+
+  const makeSpotlight = $(async () => {
+    if (!tileContainer.value || !container.value) return;
+    spotlight.value = !spotlight.value;
+
+    if(spotlight.value) {
+      if(sidebar.value) {
+        await removeScreen();
+        sidebar.value = false;
+      }
+      let screen = document.getElementById('screen') as HTMLElement;
+      const children = Array.from(tileContainer.value.children) as HTMLElement[];
+      let thumbnail;
+      if(!screen) {
+        screen = children.pop() as HTMLElement;
+        // tileContainer.value.removeChild(screen)
+      }
+      thumbnail = children.pop() as HTMLElement
+      tileContainer.value.removeChild(thumbnail)
+      screen.style.width = '100%';
+      screen.classList.add('relative')
+
+      console.log(thumbnail)
+      thumbnail.style.width='320px'
+      const ratio = aspectRatio.value?.ratio as number
+      thumbnail.style.height= `${320 * (1/ratio)}px`
+      thumbnail.classList.add('absolute','right-2','bottom-2',)
+      screen.appendChild(thumbnail)
+      await addScreen(screen)
+    } else {
+      await removeScreen();
+    }
+  });
 
   const removeLastCamera = $(async () => {
     if (!tileContainer.value) return;
-   let children = Array.from(tileContainer.value.children);
+    let children = Array.from(tileContainer.value.children);
     const deletedChild = children.pop();
     deletedChild?.remove();
     children = Array.from(tileContainer.value.children);
-    if(sidebar.value && !children.length) {
-      await showSideBar()
+    if (sidebar.value && !children.length) {
+      await showSideBar();
     } else {
       await resize();
     }
-
-
   });
 
-const changeAspectRatio = $(async (ratio: AspectRatio) => {
-  aspectRatio.value = ratio
-  await resize();
-})
+  const changeAspectRatio = $(async (ratio: AspectRatio) => {
+    aspectRatio.value = ratio;
+    await resize();
+  });
 
 
   useOnDocument('DOMContentLoaded', addParticipantCamera);
@@ -223,16 +272,21 @@ const changeAspectRatio = $(async (ratio: AspectRatio) => {
             <MaterialSymbolsDesktopWindowsRounded/>
           </button>
 
-          {showAdvancedLayoutOptions.value &&
+          {showAdvancedLayoutOptions.value  &&
             <button class={`button  ${sidebar.value ? 'is-active' : ''}`} onClick$={showSideBar}>
-            <MaterialSymbolsSplitscreenRightOutlineSharp/>
-          </button>
+              <MaterialSymbolsSpaceDashboardOutlineSharp/>
+            </button>
+          }
+          {showAdvancedLayoutOptions.value &&
+            <button class={`button  ${spotlight.value ? 'is-active' : ''}`} onClick$={makeSpotlight}>
+              <MaterialSymbolsLightCropLandscapeOutline/>
+            </button>
           }
 
           {aspectRatios.map((ratio, index) => (
             <button key={index}
                     class={`button ${aspectRatio.value?.ratioClass === ratio.ratioClass ? 'is-active' : ''}`}
-                    onClick$={()=>changeAspectRatio(ratio)}>
+                    onClick$={() => changeAspectRatio(ratio)}>
               {ratio.label}
             </button>
           ))}
