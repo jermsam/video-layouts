@@ -191,7 +191,6 @@ export default component$(() => {
 
     sidebar.value = !sidebar.value;
     if (sidebar.value) {
-      showAdvancedLayoutOptions.value=true
       if(spotlight.value) {
         const screen = document.getElementById('screen') as HTMLElement;
         const thumbnail = screen.querySelector('div') as HTMLElement;
@@ -214,7 +213,6 @@ export default component$(() => {
     spotlight.value = !spotlight.value;
 
     if(spotlight.value) {
-      showAdvancedLayoutOptions.value=true
       if(sidebar.value) {
         await removeScreen();
         sidebar.value = false;
