@@ -4,9 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d0ad3e73-fc4b-482a-b559-66fb1968e9c9" name="Changes" comment="spotlight bugs fixed">
+    <list default="true" id="d0ad3e73-fc4b-482a-b559-66fb1968e9c9" name="Changes" comment="spotlight bugs fixed for switching between spotlight and sidebar">
+      <change afterPath="$PROJECT_DIR$/simple/.eslintignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/.eslintrc.cjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/.prettierignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/.prettierrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/postcss.config.cjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/public/favicon.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/public/robots.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/qwik.env.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/src/components/ModeSwitch/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/src/components/icons/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/src/components/router-head/router-head.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/src/entry.dev.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/src/entry.preview.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/src/entry.ssr.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/src/global.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/src/root.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/src/routes/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/src/routes/layout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/src/routes/service-worker.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/tailwind.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simple/vite.config.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auto/src/routes/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/auto/src/routes/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +72,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "better",
+    "git-widget-placeholder": "simple",
     "last_opened_file_path": "/Users/samsonssali/WebstormProjects/tuts/video-grids",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -57,7 +82,7 @@
     "npm.dev (1).executor": "Run",
     "npm.dev.executor": "Run",
     "npm.lint.executor": "Run",
-    "ts.external.directory.path": "/Users/samsonssali/WebstormProjects/tuts/video-grids/auto/node_modules/typescript/lib",
+    "ts.external.directory.path": "/Users/samsonssali/WebstormProjects/tuts/video-grids/simple/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -80,7 +105,7 @@
       <recent name="$PROJECT_DIR$/auto/public" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.dev">
+  <component name="RunManager" selected="npm.simple">
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/auto/package.json" />
       <command value="run" />
@@ -101,7 +126,18 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="simple" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/simple/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="npm.simple" />
       <item itemvalue="npm.dev" />
       <item itemvalue="npm.lint" />
     </list>
@@ -360,6 +396,7 @@
     <MESSAGE value="close sidebar if all participants in sidebar leave" />
     <MESSAGE value="spotlight" />
     <MESSAGE value="spotlight bugs fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="spotlight bugs fixed" />
+    <MESSAGE value="spotlight bugs fixed for switching between spotlight and sidebar" />
+    <option name="LAST_COMMIT_MESSAGE" value="spotlight bugs fixed for switching between spotlight and sidebar" />
   </component>
 </project>

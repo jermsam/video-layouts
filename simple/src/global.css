@@ -1,0 +1,22 @@
+*{
+    box-sizing: border-box;
+}
+
+
+/**
+ * Tailwind CSS imports
+ * View the full documentation at https://tailwindcss.com
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .mode-switch {
+        @apply absolute top-5 left-9   cursor-pointer shadow flex justify-center items-center w-9 h-9 origin-center rounded-full;
+    }
+}
+
+
+
+
