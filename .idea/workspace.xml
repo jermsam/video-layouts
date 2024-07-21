@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d0ad3e73-fc4b-482a-b559-66fb1968e9c9" name="Changes" comment="layouts edited">
+    <list default="true" id="d0ad3e73-fc4b-482a-b559-66fb1968e9c9" name="Changes" comment="spotlight bugs fixed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto/src/routes/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/auto/src/routes/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,28 +44,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;better&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/samsonssali/WebstormProjects/tuts/video-grids&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.dev (1).executor&quot;: &quot;Run&quot;,
-    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
-    &quot;npm.lint.executor&quot;: &quot;Run&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/samsonssali/WebstormProjects/tuts/video-grids/auto/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "better",
+    "last_opened_file_path": "/Users/samsonssali/WebstormProjects/tuts/video-grids",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.dev (1).executor": "Run",
+    "npm.dev.executor": "Run",
+    "npm.lint.executor": "Run",
+    "ts.external.directory.path": "/Users/samsonssali/WebstormProjects/tuts/video-grids/auto/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;JavaScript&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "TypeScript JSX",
+      "TypeScript",
+      "JavaScript"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -130,7 +132,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1720905128217</updated>
-      <workItem from="1720905129323" duration="145319000" />
+      <workItem from="1720905129323" duration="179131000" />
     </task>
     <task id="LOCAL-00001" summary="some requirements">
       <option name="closed" value="true" />
@@ -284,7 +286,47 @@
       <option name="project" value="LOCAL" />
       <updated>1721400889980</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Reference for auto layout">
+      <option name="closed" value="true" />
+      <created>1721401211853</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1721401211853</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Reference for auto layout">
+      <option name="closed" value="true" />
+      <created>1721401248934</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1721401248934</updated>
+    </task>
+    <task id="LOCAL-00022" summary="close sidebar if all participants in sidebar leave">
+      <option name="closed" value="true" />
+      <created>1721408758495</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1721408758495</updated>
+    </task>
+    <task id="LOCAL-00023" summary="spotlight">
+      <option name="closed" value="true" />
+      <created>1721547973056</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1721547973056</updated>
+    </task>
+    <task id="LOCAL-00024" summary="spotlight bugs fixed">
+      <option name="closed" value="true" />
+      <created>1721552343269</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1721552343269</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -314,6 +356,10 @@
     <MESSAGE value="place-items-center instead of justify-center and items-center" />
     <MESSAGE value="object-center" />
     <MESSAGE value="layouts edited" />
-    <option name="LAST_COMMIT_MESSAGE" value="layouts edited" />
+    <MESSAGE value="Reference for auto layout" />
+    <MESSAGE value="close sidebar if all participants in sidebar leave" />
+    <MESSAGE value="spotlight" />
+    <MESSAGE value="spotlight bugs fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="spotlight bugs fixed" />
   </component>
 </project>
