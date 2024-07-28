@@ -1,6 +1,6 @@
 import {$, component$, useContext, useOnDocument, useTask$} from '@builder.io/qwik';
 import {DarkModeContext} from '~/routes/layout';
-import {MaterialSymbolsModeNight, MaterialSymbolsSunny} from '~/components/icons';
+import {FlowbiteMoonOutline, MaterialSymbolsSunnyOutline} from '~/components/icons';
 import {isServer} from '@builder.io/qwik/build';
 
 export default component$(() => {
@@ -23,11 +23,11 @@ export default component$(() => {
   });
 
   return (
-    <buttom class={`mode-switch z-1 text-[#fbb046] bg-gray-50 dark:bg-[#3c3f56] dark:text-gray-50`} onclick$={()=>darkMode.value = !darkMode.value}>
+    <buttom class={`mode-switch z-10 text-[#fbb046] bg-gray-50 dark:bg-[#3c3f56] dark:text-gray-50`} onclick$={()=>darkMode.value = !darkMode.value}>
       {
         darkMode.value ?
-          <MaterialSymbolsModeNight/> :
-          <MaterialSymbolsSunny/>
+          <FlowbiteMoonOutline class={'w-6 h-6'}/> :
+          <MaterialSymbolsSunnyOutline class={'w-6 h-6'}/>
       }
     </buttom>
   );
