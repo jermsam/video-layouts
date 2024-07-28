@@ -1,0 +1,107 @@
+*{
+    box-sizing: border-box;
+}
+
+body {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+/**
+ * Tailwind CSS imports
+ * View the full documentation at https://tailwindcss.com
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    .app-container {
+        @apply bg-[#eaebf5] dark:bg-[#262a42] w-screen h-[100dvh] flex transition-[0.2s];
+    }
+    .left-side {
+        @apply relative basis-[120px] hidden lg:flex flex-col items-center justify-center h-full p-4;
+    }
+    .app-main{
+        @apply flex-1 w-full flex flex-col justify-center items-center pt-[72px] pb-4 px-4;
+    }
+    .right-side {
+        @apply  absolute z-10   w-full right-0 basis-[400px] h-full lg:relative  p-4 transition-all duration-100;
+    }
+
+    .chat-container {
+        @apply flex flex-col h-[calc(100%_-_64px)] rounded-md bg-white dark:bg-[#3c3f56];
+    }
+
+    .video-call-wrapper {
+    @apply w-full h-full overflow-hidden flex flex-wrap rounded-2xl;
+    }
+    .video-call-actions {
+        @apply flex gap-2 justify-between items-center max-w-[500px] pt-8 lg:pt-16
+    }
+    .chat-header {
+        @apply border-b-[#f5f5f5] dark:border-b-[#2c3046] p-4 border-b border-solid flex justify-between;
+    }
+    .chat-area {
+        @apply flex-1 overflow-y-auto p-4;
+    }
+    .participants {
+        @apply flex max-w-[232px] gap-[1px] ml-auto mt-4 p-3 shadow-md rounded-lg bg-gray-50 dark:bg-[#3c3f56];
+    }
+    .chat-typing-area {
+        @apply flex p-2 rounded-[10px] shadow-md bg-[#f3f4f9] dark:bg-[#2c3046];
+    }
+}
+
+@layer components {
+    .mode-switch {
+        @apply absolute   top-5 left-4 lg:left-5 cursor-pointer shadow flex justify-center items-center w-8 lg:w-9 h-8 lg:h-9 origin-center rounded-full;
+    }
+    .navigation {
+        @apply flex flex-col bg-white dark:bg-[#3c3f56] shadow-md p-3 lg:p-6 rounded-2xl;
+    }
+    .nav-link {
+        @apply text-[#c0c1c5]  hover:text-[#3d42df] cursor-pointer dark:text-gray-50;
+    }
+    .video-action-button {
+        @apply bg-no-repeat p-2 text-gray-600 dark:text-gray-50 dark:hover:text-gray-300 bg-[24px]  shadow-md  cursor-pointer bg-gray-50 hover:bg-gray-100 dark:bg-[#3c3f56] rounded-lg border-none flex items-center justify-center;
+    }
+    .btn-mute {
+        @apply flex items-center justify-center w-8 h-8 rounded bg-[rgba(0,15,47,0.5)] bg-no-repeat bg-center  border-none text-gray-100;
+    }
+    .expand-button {
+        @apply absolute bg-gray-50 dark:bg-[#3c3f56] rounded text-[#2c303a] dark:text-gray-50 w-10 h-10 justify-center items-center flex lg:hidden border-none right-4 lg:right-5 top-6;
+    }
+    .btn-close-right {
+        @apply  bg-gray-50 dark:bg-[#3c3f56] rounded text-[#2c303a] dark:text-gray-50 block lg:hidden;
+    }
+
+    .chat-header-button {
+        @apply rounded text-white bg-no-repeat  text-sm pl-4 pr-4 py-3 border-[none] bg-[#3d42df] dark:bg-[#6f74ff] flex gap-1 items-center;
+    }
+
+    .profile-picture {
+        @apply w-8 h-8 overflow-hidden shrink-0 mr-3 rounded-lg;
+    }
+
+    .message {
+        @apply text-xs leading-4 max-w-[calc(100%_-_32px)] mt-2 px-4 py-2 rounded-[0_12px_12px_12px] bg-[#f3f4f9] dark:bg-[#2c3046] text-[#2c303a] dark:text-gray-50;
+    }
+
+    .name {
+        @apply leading-4 text-xs font-bold m-0 text-[#2c303a] dark:text-gray-50;
+    }
+    .message-file {
+        @apply border w-full rounded flex mt-4 p-2 border-solid border-[#f3f4f9] dark:border-[#2c3046] text-[#2c983a] dark:text-green-100;
+    }
+    .chat-input {
+        @apply text-sm leading-6 flex-1 bg-transparent border-[none] outline-0 text-[#3c3f56] dark:text-gray-50;
+    }
+    .send-button {
+        @apply text-white w-8 h-8 flex justify-center items-center rounded-lg border-[none] bg-[#3d42df] dark:bg-[#6f74ff];
+    }
+}
+
+
+
+
