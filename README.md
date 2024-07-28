@@ -8,4 +8,4 @@ Reference: https://alicunde.github.io/Videoconference-Dish-CSS-JS/
 
 ## Simple Layout
 A Simple layout built following https://www.youtube.com/watch?v=vqnALDy9rNc
-![alt text](https://github.com/jermsam/video-layouts/blob/main/auto/public/video-2.png)
+![alt text](https://github.com/jermsam/video-layouts/blob/main/simple/public/video.png)
