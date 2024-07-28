@@ -192,7 +192,7 @@ export default component$(() => {
               </div>
             ))
           }
-          <div class="profile-picture bg-gray-200 flex items-center justify-center">
+          <div class="profile-picture bg-gray-200 flex items-center justify-center cursor-pointer">
             2+
           </div>
         </div>
