@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d0ad3e73-fc4b-482a-b559-66fb1968e9c9" name="Changes" comment="simple design finished">
+    <list default="true" id="d0ad3e73-fc4b-482a-b559-66fb1968e9c9" name="Changes" comment="read me for simple video layout">
+      <change afterPath="$PROJECT_DIR$/auto/src/utils/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auto/src/routes/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/auto/src/routes/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,8 +17,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -76,9 +78,10 @@
       <recent name="$PROJECT_DIR$/auto/src/routes/better" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/simple/public" />
+      <recent name="$PROJECT_DIR$/auto/public" />
       <recent name="$PROJECT_DIR$/auto" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/auto/public" />
     </key>
   </component>
   <component name="RunManager" selected="npm.dev">
@@ -146,7 +149,8 @@
       <updated>1720905128217</updated>
       <workItem from="1720905129323" duration="179131000" />
       <workItem from="1721843230827" duration="17547000" />
-      <workItem from="1722035069350" duration="17096000" />
+      <workItem from="1722035069350" duration="18296000" />
+      <workItem from="1722707529397" duration="4649000" />
     </task>
     <task id="LOCAL-00001" summary="some requirements">
       <option name="closed" value="true" />
@@ -364,7 +368,31 @@
       <option name="project" value="LOCAL" />
       <updated>1722125749896</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="read me for simple video layout">
+      <option name="closed" value="true" />
+      <created>1722126321984</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1722126321984</updated>
+    </task>
+    <task id="LOCAL-00029" summary="read me for simple video layout">
+      <option name="closed" value="true" />
+      <created>1722126396811</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1722126396811</updated>
+    </task>
+    <task id="LOCAL-00030" summary="read me for simple video layout">
+      <option name="closed" value="true" />
+      <created>1722126578191</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1722126578191</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -401,7 +429,8 @@
     <MESSAGE value="spotlight bugs fixed for switching between spotlight and sidebar" />
     <MESSAGE value="simple dark/light mode switch" />
     <MESSAGE value="simple design finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="simple design finished" />
+    <MESSAGE value="read me for simple video layout" />
+    <option name="LAST_COMMIT_MESSAGE" value="read me for simple video layout" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
