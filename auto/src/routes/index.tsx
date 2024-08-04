@@ -5,7 +5,8 @@ import {
   useOnWindow,
   useSignal,
 } from '@builder.io/qwik';
-import {DocumentHead, Link} from '@builder.io/qwik-city';
+import type {DocumentHead} from '@builder.io/qwik-city';
+import { Link} from '@builder.io/qwik-city';
 import {
   AntDesignGithubOutlined,
   Fa6SolidPlus,
@@ -14,7 +15,7 @@ import {
   MaterialSymbolsLightCropLandscapeOutline,
   MaterialSymbolsSpaceDashboardOutlineSharp,
 } from '~/components/icons';
-import {largestRect} from 'rect-scaler';
+import {resize} from '~/utils';
 
 export interface AspectRatio {
   ratio: number,
@@ -56,68 +57,11 @@ export default component$(() => {
   const showAdvancedLayoutOptions = useSignal<boolean>(false);
   const container = useSignal<HTMLDivElement>();
   const tileContainer = useSignal<HTMLDivElement>();
-  const aspectRatio = useSignal<AspectRatio>();
-
-  const width = useSignal(0);
-  const height = useSignal(0);
-
-  const getUsableDimensions = $(() => {
-    if (!tileContainer.value) return {usableWidth: 0, usableHeight: 0};
-    const containerComputedStyle = getComputedStyle(tileContainer.value);
-    const containerPaddingX =
-      parseInt(containerComputedStyle.paddingLeft.replace('px', ''), 10) +
-      parseInt(containerComputedStyle.paddingRight.replace('px', ''), 10);
-    const containerPaddingY =
-      parseInt(containerComputedStyle.paddingTop.replace('px', ''), 10) +
-      parseInt(containerComputedStyle.paddingBottom.replace('px', ''), 10);
-
-    const containerWidth = tileContainer.value.offsetWidth - containerPaddingX;
-    const containerHeight = tileContainer.value.offsetHeight - containerPaddingY;
-
-    return {containerWidth, containerHeight};
+  const aspectRatio = useSignal<AspectRatio>({
+    ratio: 16 / 9,
+    label: '16:9',
+    ratioClass: 'aspect-[16/9]',
   });
-
-  const resizer = $((width: number, height: number, margin: number) => {
-    if (!tileContainer.value) return;
-    const children = Array.from(tileContainer.value.children) as HTMLElement[];
-    for (const child of children) {
-      child.style.width = `${width}px`;
-      child.style.height = `${height}px`;
-      child.style.margin = `${margin / 2}px`; // Ensure margins are applied uniformly
-      child.className = 'video-box';
-    }
-    showAdvancedLayoutOptions.value = sidebar.value || spotlight.value || (children.length > ((sidebar.value ) ? 0 : 1));
-
-  });
-
-  const resize = $(async () => {
-    if (!tileContainer.value) return;
-    if (!aspectRatio.value) {
-      aspectRatio.value = aspectRatios[0];
-    }
-    const tileCount = tileContainer.value.children.length;
-    if (!tileCount) return;
-    const containerDimensions = await getUsableDimensions();
-
-    const aspectArray = aspectRatio.value.label.split(':');
-    const aspectWidth = Number(aspectArray[0]);
-    const aspectHeight = Number(aspectArray[1]);
-    const containerWidth = containerDimensions.containerWidth as number;
-    const containerHeight = containerDimensions.containerHeight as number;
-
-    const dimensions = largestRect(
-      containerWidth,
-      containerHeight,
-      tileCount,
-      aspectWidth,
-      aspectHeight,
-    );
-
-    width.value = dimensions.width - margin;
-    height.value = dimensions.height - margin;
-    await resizer(width.value, height.value, margin);
-  });
-
 
   const addParticipantCamera = $(async () => {
     if (!tileContainer.value) return;
@@ -130,7 +74,8 @@ export default component$(() => {
     video.loop = true;
     card.appendChild(video);
     tileContainer.value.appendChild(card);
-    await resize();
+    resize(tileContainer.value,margin,aspectRatio.value);
+    showAdvancedLayoutOptions.value = (((sidebar.value) ? 0 : 1) < tileContainer.value.children.length) || spotlight.value || sidebar.value;
   });
 
   const showVideo = $(() => {
@@ -164,12 +109,11 @@ export default component$(() => {
     }
     container.value.removeChild(screen);
     tileContainer.value.appendChild(screen);
-    await resize();
+    resize(tileContainer.value,margin,aspectRatio.value);
   })
 
   const addScreen = $(async (screenToAdd: HTMLElement) => {
-    const screen = document.getElementById('screen') as HTMLElement;
-    if (screen || !tileContainer.value || !container.value) return;
+    if ( !tileContainer.value || !container.value) return;
     tileContainer.value.removeChild(screenToAdd)
     const tileContainerComputedStyle = getComputedStyle(tileContainer.value);
     const tileContainerPaddingY =
@@ -179,10 +123,10 @@ export default component$(() => {
     screenToAdd.style.height = `${screenHeight}px`;
     screenToAdd.id = 'screen';
     container.value.innerHTML = '';
-    container.value?.appendChild(screenToAdd);
+    container.value.appendChild(screenToAdd);
     tileContainer.value.style.maxHeight = `${screenHeight}px`;
     container.value.appendChild(tileContainer.value);
-    await resize();
+    resize(tileContainer.value,margin,aspectRatio.value);
   })
 
 
@@ -223,6 +167,7 @@ export default component$(() => {
       if(!screen) {
         screen = children.pop() as HTMLElement;
       }
+      // eslint-disable-next-line prefer-const
       thumbnail = children.pop() as HTMLElement
       tileContainer.value.removeChild(thumbnail)
       screen.style.width = '100%';
@@ -230,7 +175,7 @@ export default component$(() => {
 
       console.log(thumbnail)
       thumbnail.style.width='320px'
-      const ratio = aspectRatio.value?.ratio as number
+      const ratio = aspectRatio.value.ratio as number
       thumbnail.style.height= `${320 * (1/ratio)}px`
       thumbnail.classList.add('absolute','right-2','bottom-2',)
       screen.appendChild(thumbnail)
@@ -249,18 +194,22 @@ export default component$(() => {
     if (sidebar.value && !children.length) {
       await showSideBar();
     } else {
-      await resize();
+      resize(tileContainer.value,margin,aspectRatio.value);
     }
   });
 
   const changeAspectRatio = $(async (ratio: AspectRatio) => {
+    if (!tileContainer.value) return;
     aspectRatio.value = ratio;
-    await resize();
+    resize(tileContainer.value,margin,aspectRatio.value);
   });
 
 
   useOnDocument('DOMContentLoaded', addParticipantCamera);
-  useOnWindow('resize', resize);
+  useOnWindow('resize', $(()=>{
+    if (!tileContainer.value) return;
+    resize(tileContainer.value,margin,aspectRatio.value);
+  }));
 
   return (
     <div class={'relative bg-yellow-50 h-full no-scrollbar'}>
@@ -289,7 +238,7 @@ export default component$(() => {
 
           {aspectRatios.map((ratio, index) => (
             <button key={index}
-                    class={`button ${aspectRatio.value?.ratioClass === ratio.ratioClass ? 'is-active' : ''}`}
+                    class={`button ${aspectRatio.value.ratioClass === ratio.ratioClass ? 'is-active' : ''}`}
                     onClick$={() => changeAspectRatio(ratio)}>
               {ratio.label}
             </button>
